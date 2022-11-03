@@ -6,13 +6,13 @@
  * PHP version 5.4
  */
 
-require '../App/Controllers/Posts.php';
+// require '../App/Controllers/Posts.php';
  
-//Require the Router
-require '../Core/Router.php';
+// //Require the Router
+// require '../Core/Router.php';
  
-//Require home class
-require '../App/Controllers/Home.php';
+// //Require home class
+// require '../App/Controllers/Home.php';
 
 /**
  * Autoloader
@@ -41,9 +41,10 @@ $router = new Core\Router();
 
 // Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
-$router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
-
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
+$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
+
+$url = $_SERVER['QUERY_STRING'];
     
-$router->dispatch($_SERVER['QUERY_STRING']);
+$router->dispatch($url);

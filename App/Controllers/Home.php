@@ -3,24 +3,40 @@
 
 namespace App\Controllers;
 
+use \Core\View;
+
 /**
  * Home Controller
  * 
  * 
  */
-class Home 
+class Home extends \Core\Controller 
 {
     /**
-     * Show the index page
+     * Before filter
+     *
      * 
      * @return void
      */
-    public function index() {
-        echo 'Hello from the index acion in the Home controller';
+    protected function before()
+    {
+        echo "(before) ";
     }
 
-    public function addNew()
+    /**
+     * After filter
+     * 
+     * @return void
+     * 
+     */
+    protected function after()
     {
-        echo 'Hello from the addNew action in the Posts controller!';
+        echo " (after)";
+    }
+    
+
+    public function indexAction()
+    {
+        View::render('Home/index.php');
     }
 }
