@@ -1,32 +1,49 @@
 <?php
 
 /**
- * Front Controller PHP
+ * Front controller
+ *
+ * PHP version 5.4
  */
 
+require '../App/Controllers/Posts.php';
+ 
+//Require the Router
 require '../Core/Router.php';
+ 
+//Require home class
+require '../App/Controllers/Home.php';
 
-$router = new Router();
+/**
+ * Autoloader
+ */
+spl_autoload_register(function ($class) {
+    $root = dirname(__DIR__);   // get the parent directory
+    $file = $root . '/' . str_replace('\\', '/', $class) . '.php';
+    if (is_readable($file)) {
+        require $root . '/' . str_replace('\\', '/', $class) . '.php';
+    }
+});
 
-//Adding Routes
+
+/**
+ * Routing
+ */
+
+// require '../App/Controllers/Posts.php';
+// require '../App/Controllers/Home.php';
+
+/**
+ * Routing
+ */
+// require '../Core/Router.php';
+$router = new Core\Router();
+
+// Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
-// $router->add('posts/new', ['controller' => 'Posts', 'action' => 'new']);
+
 $router->add('{controller}/{action}');
-$router->add('admin/{action}/{controller}');
-
-
-// Displaying the routing table 
-// echo '<pre>';
-// var_dump($router->getRoutes());
-// echo '</pre>';
-
-//Match the requested route
-
-
-
-echo '<pre>';
-// var_dump($router->getParams());
-echo htmlspecialchars(print_r($router->getRoutes(), true));
-echo '</pre>';
-
+$router->add('{controller}/{id:\d+}/{action}');
+    
+$router->dispatch($_SERVER['QUERY_STRING']);
