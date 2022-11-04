@@ -6,6 +6,15 @@
     </head>
     <body>
         <h1>Welcome</h1>
-        <p>Hello from the view!</p>
+        <p>Hello {{ name }}</p>
+
+
+        <ul>
+            {% for colour in colours %}
+                <li>{{ colour }}</li>
+            {% endfor %}
+        </ul>
+
+
     </body>    
 </html>

@@ -6,6 +6,8 @@
  * PHP version 5.4
  */
 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
 // require '../App/Controllers/Posts.php';
  
 // //Require the Router

@@ -16,8 +16,11 @@ class View
      * 
      * @return void
      */
-    public static function render($view)
+    public static function render($view, $args = [])
     {
+
+        extract($args, EXTR_SKIP);
+
         $file = "../App/Views/$view"; // relative to Core directory
 
         if (is_readable($file)) {
@@ -25,5 +28,20 @@ class View
         } else {
             echo "$file not found";
         }
+    }
+
+    public static function renderTemplate($template, $args = [])
+    {
+        require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+        static $twig = null;
+        
+
+        if ($twig === null) {
+            $loader = new \Twig\Loader\FilesystemLoader('../App/Views');
+            $twig = new \Twig\Environment($loader);
+        }
+
+        echo $twig->render($template, $args);
     }
 }
