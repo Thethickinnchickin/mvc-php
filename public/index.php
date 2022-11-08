@@ -8,13 +8,6 @@
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-// require '../App/Controllers/Posts.php';
- 
-// //Require the Router
-// require '../Core/Router.php';
- 
-// //Require home class
-// require '../App/Controllers/Home.php';
 
 /**
  * Autoloader
@@ -28,16 +21,16 @@ spl_autoload_register(function ($class) {
 });
 
 /**
- * Routing
+ * Error and Exception handling
  */
+error_reporting(E_ALL);
+set_error_handler('Core\Error::errorHandler');
+set_exception_handler('Core\Error::exceptionHandler');
 
-// require '../App/Controllers/Posts.php';
-// require '../App/Controllers/Home.php';
 
 /**
  * Routing
  */
-// require '../Core/Router.php';
 $router = new Core\Router();
 
 // Add the routes
